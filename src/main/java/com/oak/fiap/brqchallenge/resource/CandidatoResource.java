@@ -28,4 +28,20 @@ public class CandidatoResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(candidato.getId()).toUri();
         return ResponseEntity.created(uri).body(candidato);
     }
+
+    @GetMapping("/findByNome/{nome}")
+    public ResponseEntity<List<Candidato>> findByNome(@PathVariable("nome") String nome){
+        return ResponseEntity.ok().body(repository.findAllByNomeContainingIgnoreCase(nome));
+    }
+
+    @GetMapping("/findByEmail/{email}")
+    public ResponseEntity<List<Candidato>> findByEmail(@PathVariable("email") String email) {
+        return ResponseEntity.ok().body(repository.findAllByEmailContainingIgnoreCase(email));
+    }
+
+    @GetMapping("/findByCPF/{cpf}")
+    public ResponseEntity<List<Candidato>> findByCPF(@PathVariable("cpf") String cpf) {
+        return ResponseEntity.ok().body(repository.findAllByCPFContainingIgnoreCase(cpf));
+    }
+
 }
